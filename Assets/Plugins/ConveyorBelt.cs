@@ -10,10 +10,8 @@ public class ConveyorBelt : MonoBehaviour
     private Material myMat;
     public bool Active = true;
 
-    // Use this for initialization
     void Start()
     {
-        //myMat = GetComponent<Material>();
         myMat = GetComponent<MeshRenderer>().materials[0];
         StartCoroutine("UpdateMaterialOffset");
     }
