@@ -34,15 +34,19 @@ public class Controller : MonoBehaviour {
 
 		if (crewMembers.Count > 1) {
 			if (Input.GetKeyDown(KeyCode.LeftShift)) {
-				crewIndex = crewIndex = (crewIndex + crewMembers.Count - 1) % crewMembers.Count;
+				crewIndex = (crewIndex + crewMembers.Count - 1) % crewMembers.Count;
 			} else if (Input.GetKeyDown(KeyCode.RightShift)) {
-				crewIndex = crewIndex = (crewIndex + 1) % crewMembers.Count;
+				crewIndex = (crewIndex + 1) % crewMembers.Count;
 			}
 		}
 
 		if (crewIndex < crewMembers.Count) {
 			var crewMember = crewMembers[crewIndex];
 			transform.position = crewMember.transform.position;
+
+			if (Input.GetKeyDown(KeyCode.Space)) {
+				crewMember.TryAction();
+			}
 		}
 	}
 }
