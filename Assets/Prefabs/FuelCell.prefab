@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 33149535556227272}
   - component: {fileID: 23802877388477290}
   - component: {fileID: 65307045590140828}
+  - component: {fileID: 114958849416798952}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,13 +82,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1098154064115626}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.25}
-  m_LocalScale: {x: 0.75, y: 0.5, z: 0.75}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children: []
   m_Father: {fileID: 4851654839292802}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4851654839292802
 Transform:
   m_ObjectHideFlags: 1
@@ -95,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943170684672516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 2.5, z: 0}
+  m_LocalPosition: {x: 5.5, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4758053291966424}
@@ -118,7 +119,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 8720e42926b0b664894dbb6814219037, type: 2}
+  - {fileID: 2100000, guid: d7fa57bec66897b429b1686ee6b8b1c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,7 +145,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1098154064115626}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 5975e59edd3c43a4595d30967776a5dc, type: 3}
 --- !u!61 &61804149362670204
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -180,7 +181,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.75, y: 0.75, z: 0.75}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114135085354893600
 MonoBehaviour:
@@ -193,7 +194,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1c6e35f2a1cfc46bccab94c5835043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 212016847299166366}
+--- !u!114 &114958849416798952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1098154064115626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e283e67dd1029a408d0cf5d1f16d2c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212016847299166366
 SpriteRenderer:
   m_ObjectHideFlags: 1
