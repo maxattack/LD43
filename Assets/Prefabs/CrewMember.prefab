@@ -89,6 +89,21 @@ GameObject:
   m_Component:
   - component: {fileID: 4583501840009286}
   m_Layer: 0
+  m_Name: Dropoff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1679458477019566
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4424475693621548}
+  m_Layer: 0
   m_Name: Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,6 +136,19 @@ Transform:
   m_Father: {fileID: 4982281620989420}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4424475693621548
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1679458477019566}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4982281620989420}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4468498852436510
 Transform:
   m_ObjectHideFlags: 1
@@ -141,12 +169,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576042280754906}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4982281620989420}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4982281620989420
 Transform:
@@ -158,9 +186,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4583501840009286}
+  - {fileID: 4424475693621548}
   - {fileID: 4332667262356908}
   - {fileID: 4100935049164866}
+  - {fileID: 4583501840009286}
   m_Father: {fileID: 4468498852436510}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -321,7 +350,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18eccddfeeaadc145a4af0c398d8acd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot: {fileID: 4982281620989420}
-  pickup: {fileID: 4583501840009286}
+  pivotRoot: {fileID: 4982281620989420}
+  pickupRoot: {fileID: 4424475693621548}
+  dropoffRoot: {fileID: 4583501840009286}
   targetSpeed: 5
   rotationSmoothTime: 0.05
+  pickupTime: 0.3
+  pickupHeight: 1

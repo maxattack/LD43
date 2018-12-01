@@ -2,22 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prop : MonoBehaviour, CrewMember.Interactable {
+public class Prop : MonoBehaviour, CrewMember.Interactable, CrewMember.Pickupable {
 
 	public SpriteRenderer indicator;
 
-	public enum Status {
-		Idle,
-		PickingUp,
-		PickedUp,
-		PuttingDown
-	}
+	bool isPickedUp = false;
 
-	Status status = Status.Idle;
+	// Interactable
 
 	bool CrewMember.Interactable.CanReceiveFocus {
 		get {
-			return status == Status.Idle;
+			return !isPickedUp;
 		}
 	}
 
@@ -25,15 +20,36 @@ public class Prop : MonoBehaviour, CrewMember.Interactable {
 		indicator.enabled = true;
 	}
 
+	void CrewMember.Interactable.OnActionPerformed(CrewMember crew) {
+		crew.TryPickup(this);
+	}
+
 	void CrewMember.Interactable.OnLoseFocus(CrewMember crew) {
 		indicator.enabled = false;
 	}
 
-	void CrewMember.Interactable.OnActionPerformed(CrewMember crew) {
-		transform.parent = crew.pickup;
-		transform.localPosition = Vector3.zero;
-		transform.localRotation = Quaternion.identity;
-		status = Status.PickedUp;
+	// Pickupable
+
+	Transform CrewMember.Pickupable.RootTransform {
+		get {
+			return transform;
+		}
+	}
+
+	void CrewMember.Pickupable.OnPickup(CrewMember crew) {
+		isPickedUp = true;
+		foreach(var it in GetComponentsInChildren<Collider2D>())
+			it.enabled = false;
+	}
+
+	void CrewMember.Pickupable.OnActionPerformed(CrewMember crew) {
+		crew.TryPutDown();
+	}
+
+	void CrewMember.Pickupable.OnDropoff(CrewMember crew) {
+		foreach (var it in GetComponentsInChildren<Collider2D>())
+			it.enabled = true;
 	}
 
 }
+
