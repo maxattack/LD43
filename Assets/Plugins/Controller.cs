@@ -3,8 +3,20 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour {
 
+	public Transform indicatorRoot;
+
 	int crewIndex = 0;
 	List<CrewMember> crewMembers = new List<CrewMember>();
+
+
+	SpriteRenderer indicatorSprite;
+
+	public bool IsCrewMemberSelected { get { return crewIndex < crewMembers.Count; } }
+	public CrewMember SelectedCrewMember { get { return crewMembers[crewIndex]; } }
+
+	void Awake() {
+		indicatorSprite = indicatorRoot.GetComponentInChildren<SpriteRenderer>();
+	}
 
 	void Start() {
 		crewMembers.AddRange(GameObject.FindObjectsOfType<CrewMember>());
@@ -40,13 +52,23 @@ public class Controller : MonoBehaviour {
 			}
 		}
 
-		if (crewIndex < crewMembers.Count) {
-			var crewMember = crewMembers[crewIndex];
-			transform.position = crewMember.transform.position;
 
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				crewMember.TryAction();
-			}
+		if (IsCrewMemberSelected) {
+			transform.position = SelectedCrewMember.transform.position;
+			if (Input.GetKeyDown(KeyCode.Space))
+				SelectedCrewMember.TryAction();
+		} 
+
+		var focus = IsCrewMemberSelected ? SelectedCrewMember.focus : null;
+		if (focus == null) {
+			indicatorSprite.enabled = false;
+		} else {
+			indicatorSprite.enabled = true;
+			indicatorRoot.position = focus.IndicatorRoot.position;
 		}
+
 	}
+
+
+
 }

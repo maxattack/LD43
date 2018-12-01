@@ -8,6 +8,7 @@ public class CrewMember : MonoBehaviour {
 	public Transform pivotRoot;
 	public Transform pickupRoot;
 	public Transform dropoffRoot;
+	public Transform indicatorRoot;
 	public float targetSpeed = 5f;
 	public float rotationSmoothTime = 0.1f;
 	public float pickupTime = 0.5f;
@@ -33,12 +34,13 @@ public class CrewMember : MonoBehaviour {
 
 	// interactables
 	public interface Interactable {
+		Transform IndicatorRoot { get; }
 		bool CanReceiveFocus { get; }
 		void OnReceiveFocus(CrewMember crew);
 		void OnActionPerformed(CrewMember crew);
 		void OnLoseFocus(CrewMember crew);
 	}
-	internal Interactable interactableInFocus;
+	internal Interactable focus;
 
 	// pickups
 	public interface Pickupable {
@@ -58,8 +60,8 @@ public class CrewMember : MonoBehaviour {
 	}
 
 	public void TryAction() {
-		if (interactableInFocus != null && status == Status.Idle)
-			interactableInFocus.OnActionPerformed(this);
+		if (focus != null && status == Status.Idle)
+			focus.OnActionPerformed(this);
 
 		if (pickup != null && status == Status.HoldingPickup)
 			pickup.OnActionPerformed(this);
@@ -72,9 +74,9 @@ public class CrewMember : MonoBehaviour {
 		if (earlyOut)
 			return;
 
-		if (interactableInFocus != null) {
-			var receiver = interactableInFocus;
-			interactableInFocus = null;
+		if (focus != null) {
+			var receiver = focus;
+			focus = null;
 			receiver.OnLoseFocus(this);
 		}
 
@@ -116,6 +118,7 @@ public class CrewMember : MonoBehaviour {
 	IEnumerator DoPickup() {
 
 		body.isKinematic = true;
+		body.velocity = Vector2.zero;
 
 		var xf = pickup.RootTransform;
 		var startLoc = xf.position;
@@ -132,7 +135,6 @@ public class CrewMember : MonoBehaviour {
 		SetStatus(Status.HoldingPickup);
 		xf.parent = pickupRoot;
 		xf.localPosition = Vector3.zero;
-		//xf.localRotation = Quaternion.identity;
 
 		body.isKinematic = false;
 
@@ -141,6 +143,7 @@ public class CrewMember : MonoBehaviour {
 	IEnumerator DoPutdown() {
 
 		body.isKinematic = true;
+		body.velocity = Vector2.zero;
 
 		var xf = pickup.RootTransform;
 		xf.parent = null;
@@ -175,8 +178,11 @@ public class CrewMember : MonoBehaviour {
 	}
 
 	void Update() {
-		currentDirection = Mathf.SmoothDampAngle(currentDirection, targetDirection, ref dirVelocity, rotationSmoothTime);
-		pivotRoot.localEulerAngles = new Vector3(0f, 0f, currentDirection);
+		var shouldRotate = status == Status.Idle || status == Status.HoldingPickup;
+		if (shouldRotate) {
+			currentDirection = Mathf.SmoothDampAngle(currentDirection, targetDirection, ref dirVelocity, rotationSmoothTime);
+			pivotRoot.localEulerAngles = new Vector3(0f, 0f, currentDirection);
+		}
 
 	}
 
@@ -194,22 +200,22 @@ public class CrewMember : MonoBehaviour {
 		var earlyOut = 
 			pickup != null ||
 			prop == null || 
-			prop == interactableInFocus || 
+			prop == focus || 
 			!prop.CanReceiveFocus;
 		if (earlyOut)
 			return;
 
-		if (interactableInFocus != null)
-			interactableInFocus.OnLoseFocus(this);
+		if (focus != null)
+			focus.OnLoseFocus(this);
 
-		interactableInFocus = prop;
+		focus = prop;
 		prop.OnReceiveFocus(this);
 	}
 
 	void OnTriggerExit2D(Collider2D collision) {
 		var prop = collision.GetComponent<Interactable>();
-		if (prop != null && prop == interactableInFocus) {
-			interactableInFocus = null;
+		if (prop != null && prop == focus) {
+			focus = null;
 			prop.OnLoseFocus(this);
 		}
 	}

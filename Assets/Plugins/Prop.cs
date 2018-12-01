@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class Prop : MonoBehaviour, CrewMember.Interactable, CrewMember.Pickupable {
 
-	public SpriteRenderer indicator;
-
 	bool isPickedUp = false;
 
 	// Interactable
 
+	Transform CrewMember.Interactable.IndicatorRoot {
+		get { return transform; }
+	}
+
 	bool CrewMember.Interactable.CanReceiveFocus {
-		get {
-			return !isPickedUp;
-		}
+		get { return !isPickedUp; }
 	}
 
 	void CrewMember.Interactable.OnReceiveFocus(CrewMember crew) {
-		indicator.enabled = true;
 	}
 
 	void CrewMember.Interactable.OnActionPerformed(CrewMember crew) {
@@ -25,15 +24,12 @@ public class Prop : MonoBehaviour, CrewMember.Interactable, CrewMember.Pickupabl
 	}
 
 	void CrewMember.Interactable.OnLoseFocus(CrewMember crew) {
-		indicator.enabled = false;
 	}
 
 	// Pickupable
 
 	Transform CrewMember.Pickupable.RootTransform {
-		get {
-			return transform;
-		}
+		get { return transform; }
 	}
 
 	void CrewMember.Pickupable.OnPickup(CrewMember crew) {
@@ -47,6 +43,7 @@ public class Prop : MonoBehaviour, CrewMember.Interactable, CrewMember.Pickupabl
 	}
 
 	void CrewMember.Pickupable.OnDropoff(CrewMember crew) {
+		isPickedUp = false;
 		foreach (var it in GetComponentsInChildren<Collider2D>())
 			it.enabled = true;
 	}

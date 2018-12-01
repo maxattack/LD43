@@ -326,7 +326,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.5, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.25
 --- !u!65 &65986310116032968
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -353,6 +353,7 @@ MonoBehaviour:
   pivotRoot: {fileID: 4982281620989420}
   pickupRoot: {fileID: 4424475693621548}
   dropoffRoot: {fileID: 4583501840009286}
+  indicatorRoot: {fileID: 0}
   targetSpeed: 5
   rotationSmoothTime: 0.05
   pickupTime: 0.3
