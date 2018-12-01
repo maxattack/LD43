@@ -6,6 +6,7 @@ public class CrewMember : MonoBehaviour {
 
 	// public parameters
 	public Transform pivotRoot;
+	public Transform cardinalRoot;
 	public Transform pickupRoot;
 	public Transform dropoffRoot;
 	public Transform indicatorRoot;
@@ -180,12 +181,9 @@ public class CrewMember : MonoBehaviour {
 	}
 
 	void Update() {
-		var shouldRotate = status == Status.Idle || status == Status.HoldingPickup;
-		if (shouldRotate) {
-			currentDirection = Mathf.SmoothDampAngle(currentDirection, targetDirection, ref dirVelocity, rotationSmoothTime);
-			pivotRoot.localEulerAngles = new Vector3(0f, 0f, currentDirection);
-		}
-
+		currentDirection = Mathf.SmoothDampAngle(currentDirection, targetDirection, ref dirVelocity, rotationSmoothTime);
+		pivotRoot.localEulerAngles = new Vector3(0f, 0f, currentDirection);
+		cardinalRoot.localEulerAngles = new Vector3(0f, 0f, targetDirection);
 	}
 
 
