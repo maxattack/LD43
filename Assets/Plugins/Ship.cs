@@ -4,7 +4,9 @@ using UnityEngine;
 public class Ship : MonoBehaviour {
 
 	public static Ship inst;
-	public List<ShipMass> masses;
+
+	internal List<Booty> booty = new List<Booty>();
+	internal List<ShipMass> masses = new List<ShipMass>();
 	internal Vector2 centerOfMass;
 
 
@@ -42,6 +44,13 @@ public class Ship : MonoBehaviour {
 		var result = 0f;
 		for(int it=0; it<masses.Count; ++it)
 			result += masses[it].mass;
+		return result;
+	}
+
+	public int GetTotalBooty() {
+		var result = 0;
+		for(int it=0; it<booty.Count; ++it)
+			result += booty[it].treasureAmount;
 		return result;
 	}
 
