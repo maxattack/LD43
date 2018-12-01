@@ -110,11 +110,7 @@ public class CrewMember : MonoBehaviour {
 		get { return Time.time - statusTime; }
 	}
 
-	static float UnitParabola(float x) {
-		float xx = 1f - x - x;
-		return 1f - xx * xx;
-	}
-
+	
 	IEnumerator DoPickup() {
 
 		body.isKinematic = true;
@@ -126,14 +122,17 @@ public class CrewMember : MonoBehaviour {
 		while(StatusTimeElapsed < pickupTime) {
 			var progress = StatusTimeElapsed / pickupTime;
 			xf.position = 
-				UnitParabola(progress) * pickupHeight * (-Vector3.forward) +  
+				Util.UnitParabola(progress) * pickupHeight * (-Vector3.forward) +  
 				Vector3.Lerp(startLoc, pickupRoot.position, progress);
 			//xf.rotation = Quaternion.Slerp(startRot, pickupRoot.rotation, progress);
 			yield return null;
 		}
 
 		SetStatus(Status.HoldingPickup);
+
 		xf.parent = pickupRoot;
+		xf.SnapRotation();
+
 		xf.localPosition = Vector3.zero;
 
 		body.isKinematic = false;
@@ -146,13 +145,16 @@ public class CrewMember : MonoBehaviour {
 		body.velocity = Vector2.zero;
 
 		var xf = pickup.RootTransform;
+
 		xf.parent = null;
+		xf.SnapRotation();
+
 		var startLoc = xf.position;
 		var endLoc = dropoffRoot.position;
 		while (StatusTimeElapsed < pickupTime) {
 			var progress = StatusTimeElapsed / pickupTime;
-			xf.position = 
-				UnitParabola(progress) * pickupHeight * (-Vector3.forward) + 
+			xf.position =
+				Util.UnitParabola(progress) * pickupHeight * (-Vector3.forward) + 
 				Vector3.Lerp(startLoc, endLoc, progress);
 			yield return null;
 		}

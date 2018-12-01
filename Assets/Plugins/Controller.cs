@@ -4,12 +4,14 @@ using UnityEngine;
 public class Controller : MonoBehaviour {
 
 	public Transform indicatorRoot;
+	SpriteRenderer indicatorSprite;
 
 	int crewIndex = 0;
 	List<CrewMember> crewMembers = new List<CrewMember>();
 
 
-	SpriteRenderer indicatorSprite;
+	KeyCode? mostRecentKeycode;
+	KeyCode[] WASD = new KeyCode[4] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
 
 	public bool IsCrewMemberSelected { get { return crewIndex < crewMembers.Count; } }
 	public CrewMember SelectedCrewMember { get { return crewMembers[crewIndex]; } }
@@ -22,19 +24,46 @@ public class Controller : MonoBehaviour {
 		crewMembers.AddRange(GameObject.FindObjectsOfType<CrewMember>());
 	}
 
+	Vector2 KeyToDirection(KeyCode key) {
+		switch(key) {
+		case KeyCode.W: return new Vector2(0, 1);
+		case KeyCode.A: return new Vector2(-1, 0);
+		case KeyCode.S: return new Vector2(0, -1);
+		case KeyCode.D: return new Vector2(1, 0);
+		default: return Vector2.zero;
+		}
+	}
+
 	void FixedUpdate() {
 
 		if (crewIndex < crewMembers.Count) {
 			var crewMember = crewMembers[crewIndex];
+
 			var input = Vector2.zero;
-			if (Input.GetKey(KeyCode.W))
-				input.y = 1f;
-			else if (Input.GetKey(KeyCode.S))
-				input.y = -1f;
-			if (Input.GetKey(KeyCode.A))
-				input.x = -1f;
-			else if (Input.GetKey(KeyCode.D))
-				input.x = 1f;
+
+			for (int it=0; it<WASD.Length; ++it) {
+				if (Input.GetKeyDown(WASD[it])) {
+					mostRecentKeycode = WASD[it];
+					break;
+				}
+			}
+
+			if (mostRecentKeycode.HasValue) {
+				if (Input.GetKey(mostRecentKeycode.Value)) {
+					input = KeyToDirection(mostRecentKeycode.Value);
+				} else {
+					mostRecentKeycode = null;
+				}
+			}
+			if (!mostRecentKeycode.HasValue) {
+				for(int it=0; it<WASD.Length; ++it) {
+					if (Input.GetKey(WASD[it])) {
+						input = KeyToDirection(WASD[it]);
+						break;
+					}
+
+				}
+			}
 
 			if (input.sqrMagnitude > Mathf.Epsilon) {
 				crewMember.Accelerate(input);
