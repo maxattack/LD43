@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 50943217177115774}
   - component: {fileID: 114695800274824192}
   - component: {fileID: 58136811420362666}
+  - component: {fileID: 114065576712137936}
   m_Layer: 0
   m_Name: CrewMember
   m_TagString: Untagged
@@ -355,7 +356,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.5, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.24
 --- !u!65 &65986310116032968
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -368,6 +369,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114065576712137936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165064229933934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c250125dff1fe4d48b31cdce89482149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
 --- !u!114 &114695800274824192
 MonoBehaviour:
   m_ObjectHideFlags: 1

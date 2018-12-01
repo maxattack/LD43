@@ -15,4 +15,8 @@ public static class Util {
 
 	}
 
+	public static Vector2 XY(this Transform t) {
+		return t.position;
+	}
+
 }
