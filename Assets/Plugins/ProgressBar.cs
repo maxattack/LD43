@@ -27,11 +27,16 @@ public class ProgressBar : MonoBehaviour {
 
     public float PlayerSpeedMultiplier;
     public float DangerSpeedRate;
+    public float DangerRandomRange = 5f;
 
     public GameObject VictoryPanel;
     public GameObject DefeatPanel;
     public Text VictoryBounty;
     public Text DefeatBounty;
+
+    public RectTransform SpeedometerDial;
+    public Text SpeedometerText;
+    public float MaxSpeed = 120f;
 
     private void LateUpdate()
     {
@@ -47,11 +52,14 @@ public class ProgressBar : MonoBehaviour {
             Mathf.RoundToInt((1f - bp) * thrust / mass) : 0f;
 
         PlayerSpeed.text = "SPEED:\n" + speed + " au/s";
+        SpeedometerText.text = speed.ToString();
+        float dialRot = Mathf.InverseLerp(0,MaxSpeed, speed);
+        SpeedometerDial.rotation = Quaternion.Euler(0,0, Mathf.Lerp(-300,-95,1-dialRot));
 
         UpdateRatio(mass, thrust, bp, com.x);
 
         currentPlayerDist += speed * Time.deltaTime * PlayerSpeedMultiplier;
-        currentDangerDist += Time.deltaTime * DangerSpeedRate;
+        currentDangerDist += Time.deltaTime * (DangerSpeedRate + Random.Range(-DangerRandomRange, DangerRandomRange));
 
         UpdateDistances(currentPlayerDist, currentDangerDist);
 
