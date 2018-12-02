@@ -42,7 +42,7 @@ public class ProgressBar : MonoBehaviour {
     {
         //This is ripped from StatsText
         var mass = ShipMass.MassScale * Ship.inst.GetTotalMass();
-        var totalMass = Mathf.RoundToInt(mass);
+        //var totalMass = Mathf.RoundToInt(mass);
         var thrust = 10000 * Ship.inst.GetThrustCount();
         var com = Ship.inst.centerOfMass;
 

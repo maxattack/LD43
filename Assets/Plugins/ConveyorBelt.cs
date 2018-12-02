@@ -5,7 +5,6 @@ using UnityEngine;
 public class ConveyorBelt : MonoBehaviour
 {
 
-    Vector2 direction = new Vector2(0, 1);
     public float Strength = 3f;
     private Material myMat;
     public bool Active = true;
@@ -29,7 +28,7 @@ public class ConveyorBelt : MonoBehaviour
     {
         if (collider.GetComponent<Rigidbody2D>() != null && Active)// && GetComponent<Collider2D>().bounds.Contains(collider.gameObject.transform.position))
         {
-            collider.GetComponent<Rigidbody2D>().AddForce(direction * Strength * collider.GetComponent<Rigidbody2D>().drag, ForceMode2D.Force);
+            collider.GetComponent<Rigidbody2D>().AddForce(transform.up * Strength * collider.GetComponent<Rigidbody2D>().drag, ForceMode2D.Force);
 
         }
     }
