@@ -5,6 +5,8 @@ public class Ship : MonoBehaviour {
 
 	public static Ship inst;
 
+	public float maxBalancePenaltyMeters = 10f;
+
 	internal List<Booty> booty = new List<Booty>();
 	internal List<ShipMass> masses = new List<ShipMass>();
 	internal List<Thruster> thrusters = new List<Thruster>();
