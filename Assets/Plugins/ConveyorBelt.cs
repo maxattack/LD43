@@ -25,10 +25,9 @@ public class ConveyorBelt : MonoBehaviour
         }
     }
 
-
     public void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.GetComponent<Rigidbody2D>() != null && Active)
+        if (collider.GetComponent<Rigidbody2D>() != null && Active)// && GetComponent<Collider2D>().bounds.Contains(collider.gameObject.transform.position))
         {
             collider.GetComponent<Rigidbody2D>().AddForce(direction * Strength * collider.GetComponent<Rigidbody2D>().drag, ForceMode2D.Force);
 
