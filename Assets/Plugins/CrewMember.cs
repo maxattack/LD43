@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrewMember : MonoBehaviour {
+public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 
 	// public parameters
+	public string description = "Another Redshirt";
 	public Transform pivotRoot;
 	public Transform cardinalRoot;
 	public Transform pickupRoot;
@@ -220,4 +221,31 @@ public class CrewMember : MonoBehaviour {
 			prop.OnLoseFocus(this);
 		}
 	}
+
+	// interactable
+	Transform Interactable.IndicatorRoot {
+		get { return transform; }
+	}
+
+	string Interactable.GetDescription() {
+		return description;
+	}
+
+	bool Interactable.CanReceiveFocus {
+		get { return true; }
+	}
+
+	void Interactable.OnReceiveFocus(CrewMember crew) {
+
+	}
+
+	void Interactable.OnActionPerformed(CrewMember crew) {
+
+	}
+
+	void Interactable.OnLoseFocus(CrewMember crew) {
+
+	}
+
+
 }
