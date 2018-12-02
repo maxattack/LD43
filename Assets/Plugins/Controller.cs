@@ -103,14 +103,9 @@ public class Controller : MonoBehaviour {
 				indicatorSprite.enabled = false;
 				detailsText.text = "";
 			}
-
-
 		} else {
-			if (!indicatorSprite.enabled) {
-				indicatorSprite.enabled = true;
-				detailsText.text = focus.GetDescription();
-			}
-
+			indicatorSprite.enabled = true;
+			detailsText.text = focus.GetDescription();
 			indicatorRoot.position = focus.IndicatorRoot.position;
 
 		}

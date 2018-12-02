@@ -91,9 +91,10 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		StartCoroutine(DoPickup());
 	}
 
-	public bool GetDropoffLocation(out Vector2 location) {
+	public bool GetDropoffLocation(out Vector2 location, out Slot slot) {
 		var targetLoc = dropoffRoot.position;
 		location = targetLoc;
+		slot = null;
 		if (pickup == null)
 			return false;
 
@@ -101,22 +102,22 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		var rotation = cardinalRoot.eulerAngles.z;
 		var colliders = Physics2D.OverlapBoxAll(targetLoc, sz, rotation, 0xffffff);
 		foreach(var c in colliders) {
-			if (c.isTrigger) {
-				var slot = c.GetComponent<Slot>();
-				if (slot) {
-					location = slot.transform.position;
-					return true;
-				}
-			} else {
+			var s = c.GetComponent<Slot>();
+			if (s && s.IsEmpty) {
+				location = s.transform.position;
+				slot = s;
+				return true;
+			} else if (!c.isTrigger) {
 				return false;
 			}
-			
-
-			if (!c.isTrigger)
-				return false;
 		}
 
 		return true;
+	}
+
+	public bool GetDropoffLocation(out Vector2 location) {
+		Slot _;
+		return GetDropoffLocation(out location, out _);
 	}
 
 	public void TryPutDown() {
@@ -127,9 +128,10 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 			return;
 
 		Vector2 dropLoc;
-		if (GetDropoffLocation(out dropLoc)) {
+		Slot slot;
+		if (GetDropoffLocation(out dropLoc, out slot)) {
 			SetStatus(Status.PuttingDown);
-			StartCoroutine(DoPutdown(dropLoc));
+			StartCoroutine(DoPutdown(dropLoc, slot));
 		}
 
 
@@ -153,6 +155,13 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		body.velocity = Vector2.zero;
 
 		var xf = pickup.RootTransform;
+
+		var connection = SlotConnection.GetConnection(pickup);
+		if (connection.connectedSlot != null) {
+			connection.connectedSlot.TryEmpty();
+			connection.connectedSlot = null;
+		}
+
 		var startLoc = xf.position;
 		var startRot = xf.rotation;
 		while(StatusTimeElapsed < pickupTime) {
@@ -175,7 +184,7 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 
 	}
 
-	IEnumerator DoPutdown(Vector2 dropLoc) {
+	IEnumerator DoPutdown(Vector2 dropLoc, Slot slot) {
 
 		body.isKinematic = true;
 		body.velocity = Vector2.zero;
@@ -202,6 +211,10 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		body.isKinematic = false;
 
 		receiver.OnDropoff(this);
+
+		if (slot != null) {
+			slot.TryFill(receiver);
+		}
 	}
 
 	// unity events
