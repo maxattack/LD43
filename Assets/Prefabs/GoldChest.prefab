@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4203902349181104}
   - component: {fileID: 61607326838620262}
   - component: {fileID: 114858062026879392}
+  - component: {fileID: 114204866888686228}
+  - component: {fileID: 114469212156212502}
   m_Layer: 0
   m_Name: GoldChest
   m_TagString: Untagged
@@ -88,7 +90,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 8720e42926b0b664894dbb6814219037, type: 2}
+  - {fileID: 2100000, guid: 434a7b46a26d3e04d81ec16a2bdb2f67, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -152,6 +154,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114204866888686228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1144022633201326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c250125dff1fe4d48b31cdce89482149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 100
+--- !u!114 &114469212156212502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1144022633201326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b88dc24bafa65a4d9c4f54e50a1da6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treasureAmount: 1000
 --- !u!114 &114858062026879392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,3 +189,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1c6e35f2a1cfc46bccab94c5835043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: Gold Doubloons

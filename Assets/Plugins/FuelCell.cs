@@ -21,9 +21,7 @@ public class FuelCell : MonoBehaviour {
         if(other.GetComponent<FuelBase>() != null)
         {
             currentBase = other.GetComponent<FuelBase>();
-            Transform restTransform = other.GetComponent<FuelBase>().StartFueling();
-            transform.parent.transform.position = restTransform.position;
-            transform.parent.transform.rotation = restTransform.rotation;
+            currentBase.StartFueling();
 
             spendingFuel = true;
             StartCoroutine("LoseFuel");

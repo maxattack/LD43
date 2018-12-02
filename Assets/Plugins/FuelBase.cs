@@ -5,21 +5,13 @@ using UnityEngine;
 public class FuelBase : MonoBehaviour {
 
     public Machine[] PoweringMachines;
-    public Transform CellPosition;
 
-    void Start()
-    {
-        CellPosition.position = CellPosition.TransformPoint(CellPosition.position);
-    }
-
-    public Transform StartFueling()
+    public void StartFueling()
     {
         foreach (Machine m in PoweringMachines)
         {
             m.Activate();
         }
-
-        return CellPosition;
     }
 
     public void StopFueling()
