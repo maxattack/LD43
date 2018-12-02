@@ -7,6 +7,7 @@ public class Ship : MonoBehaviour {
 
 	internal List<Booty> booty = new List<Booty>();
 	internal List<ShipMass> masses = new List<ShipMass>();
+	internal List<Thruster> thrusters = new List<Thruster>();
 	internal Vector2 centerOfMass;
 
 
@@ -51,6 +52,15 @@ public class Ship : MonoBehaviour {
 		var result = 0;
 		for(int it=0; it<booty.Count; ++it)
 			result += booty[it].treasureAmount;
+		return result;
+	}
+
+	public int GetThrustCount() {
+		var result = 0;
+		for(int it=0; it<thrusters.Count; ++it) {
+			if (thrusters[it].IsThrusting)
+				++result;
+		}
 		return result;
 	}
 

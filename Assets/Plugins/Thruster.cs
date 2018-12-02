@@ -8,8 +8,22 @@ public class Thruster : MonoBehaviour, Slot.Listener {
 
 	internal FuelCell cell;
 
+	public bool IsThrusting {
+		get { return flame.activeInHierarchy; }
+	}
+
 	void Awake() {
 		flame.SetActive(false);	
+	}
+
+	void Start() {
+		if (Ship.inst)
+			Ship.inst.thrusters.Add(this);
+	}
+
+	void OnDestroy() {
+		if (Ship.inst)
+			Ship.inst.thrusters.Remove(this);
 	}
 
 	void Slot.Listener.SlotFilled(Slot slot, CrewMember.Pickupable pickup) {
