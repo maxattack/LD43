@@ -48,6 +48,7 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 	// pickups
 	public interface Pickupable {
 		Transform RootTransform { get; }
+		Vector2 BoxSize { get; }
 		void OnPickup(CrewMember crew);
 		void OnActionPerformed(CrewMember crew);
 		void OnDropoff(CrewMember crew);
@@ -90,6 +91,34 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		StartCoroutine(DoPickup());
 	}
 
+	public bool GetDropoffLocation(out Vector2 location) {
+		var targetLoc = dropoffRoot.position;
+		location = targetLoc;
+		if (pickup == null)
+			return false;
+
+		var sz = pickup.BoxSize;
+		var rotation = cardinalRoot.eulerAngles.z;
+		var colliders = Physics2D.OverlapBoxAll(targetLoc, sz, rotation, 0xffffff);
+		foreach(var c in colliders) {
+			if (c.isTrigger) {
+				var slot = c.GetComponent<Slot>();
+				if (slot) {
+					location = slot.transform.position;
+					return true;
+				}
+			} else {
+				return false;
+			}
+			
+
+			if (!c.isTrigger)
+				return false;
+		}
+
+		return true;
+	}
+
 	public void TryPutDown() {
 		var earlyOut = 
 			status != Status.HoldingPickup ||
@@ -97,8 +126,12 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		if (earlyOut)
 			return;
 
-		SetStatus(Status.PuttingDown);
-		StartCoroutine(DoPutdown());
+		Vector2 dropLoc;
+		if (GetDropoffLocation(out dropLoc)) {
+			SetStatus(Status.PuttingDown);
+			StartCoroutine(DoPutdown(dropLoc));
+		}
+
 
 	}
 
@@ -142,7 +175,7 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 
 	}
 
-	IEnumerator DoPutdown() {
+	IEnumerator DoPutdown(Vector2 dropLoc) {
 
 		body.isKinematic = true;
 		body.velocity = Vector2.zero;
@@ -153,16 +186,15 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		xf.SnapRotation();
 
 		var startLoc = xf.position;
-		var endLoc = dropoffRoot.position;
 		while (StatusTimeElapsed < pickupTime) {
 			var progress = StatusTimeElapsed / pickupTime;
 			xf.position =
 				Util.UnitParabola(progress) * pickupHeight * (-Vector3.forward) + 
-				Vector3.Lerp(startLoc, endLoc, progress);
+				Vector3.Lerp(startLoc, dropLoc, progress);
 			yield return null;
 		}
 
-		xf.position = endLoc;
+		xf.position = dropLoc;
 		var receiver = pickup;
 		pickup = null;
 		SetStatus(Status.Idle);

@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour {
 
+	public Transform selectionRect;
+	public Color badDropColor = Color.red;
+	public Color okDropColor = Color.white;
+	SpriteRenderer selectionSprite;
+
 	public Transform indicatorRoot;
 	SpriteRenderer indicatorSprite;
 	TextMesh detailsText;
@@ -20,6 +25,8 @@ public class Controller : MonoBehaviour {
 	void Awake() {
 		indicatorSprite = indicatorRoot.GetComponentInChildren<SpriteRenderer>();
 		detailsText = indicatorRoot.GetComponentInChildren<TextMesh>();
+
+		selectionSprite = selectionRect.GetComponentInChildren<SpriteRenderer>();
 	}
 
 	void Start() {
@@ -96,6 +103,8 @@ public class Controller : MonoBehaviour {
 				indicatorSprite.enabled = false;
 				detailsText.text = "";
 			}
+
+
 		} else {
 			if (!indicatorSprite.enabled) {
 				indicatorSprite.enabled = true;
@@ -104,7 +113,19 @@ public class Controller : MonoBehaviour {
 
 			indicatorRoot.position = focus.IndicatorRoot.position;
 
-			
+		}
+
+		var pickup = IsCrewMemberSelected ? SelectedCrewMember.pickup : null;
+		if (pickup == null) {
+			selectionSprite.enabled = false;
+		} else {
+			selectionSprite.enabled = true;
+			Vector2 dropLoc;
+			selectionSprite.color = SelectedCrewMember.GetDropoffLocation(out dropLoc) ?
+				okDropColor : badDropColor;
+			selectionRect.position = dropLoc;
+			var size = pickup.BoxSize;
+			selectionRect.localScale = new Vector3(size.x, size.y, 1f);
 		}
 
 	}

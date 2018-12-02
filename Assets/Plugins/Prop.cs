@@ -5,7 +5,13 @@ using UnityEngine;
 public class Prop : MonoBehaviour, CrewMember.Interactable, CrewMember.Pickupable {
 
 	public string description = "Gold Doubloons";
+	BoxCollider2D box;
+
 	bool isPickedUp = false;
+
+	void Awake() {
+		box = GetComponent<BoxCollider2D>();
+	}
 
 	// Interactable
 
@@ -45,6 +51,10 @@ public class Prop : MonoBehaviour, CrewMember.Interactable, CrewMember.Pickupabl
 
 	Transform CrewMember.Pickupable.RootTransform {
 		get { return transform; }
+	}
+
+	Vector2 CrewMember.Pickupable.BoxSize {
+		get { return box.size; }
 	}
 
 	void CrewMember.Pickupable.OnPickup(CrewMember crew) {

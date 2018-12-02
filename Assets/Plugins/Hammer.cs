@@ -31,6 +31,10 @@ public class Hammer : MonoBehaviour, CrewMember.Pickupable {
         get { return transform; }
     }
 
+	Vector2 CrewMember.Pickupable.BoxSize {
+		get { return new Vector2(1f, 1f); }
+	}
+
     void CrewMember.Pickupable.OnPickup(CrewMember crew)
     {
         isPickedUp = true;
