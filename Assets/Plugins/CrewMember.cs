@@ -156,11 +156,7 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 
 		var xf = pickup.RootTransform;
 
-		var connection = SlotConnection.GetConnection(pickup);
-		if (connection.connectedSlot != null) {
-			connection.connectedSlot.TryEmpty();
-			connection.connectedSlot = null;
-		}
+		SlotConnection.Detach(xf);
 
 		var startLoc = xf.position;
 		var startRot = xf.rotation;
@@ -212,9 +208,8 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 
 		receiver.OnDropoff(this);
 
-		if (slot != null) {
-			slot.TryFill(receiver);
-		}
+		if (slot != null)
+			slot.TryFill(xf);
 	}
 
 	// unity events

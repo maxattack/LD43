@@ -26,8 +26,8 @@ public class Thruster : MonoBehaviour, Slot.Listener {
 			Ship.inst.thrusters.Remove(this);
 	}
 
-	void Slot.Listener.SlotFilled(Slot slot, CrewMember.Pickupable pickup) {
-		var fuelCell = pickup.RootTransform.GetComponent<FuelCell>();
+	void Slot.Listener.SlotFilled(Slot slot, Transform item) {
+		var fuelCell = item.GetComponent<FuelCell>();
 		if (fuelCell) {
 			cell = fuelCell;
 		}
