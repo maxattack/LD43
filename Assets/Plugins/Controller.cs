@@ -5,6 +5,7 @@ public class Controller : MonoBehaviour {
 
 	public Transform indicatorRoot;
 	SpriteRenderer indicatorSprite;
+	TextMesh detailsText;
 
 	int crewIndex = 0;
 	List<CrewMember> crewMembers = new List<CrewMember>();
@@ -18,6 +19,7 @@ public class Controller : MonoBehaviour {
 
 	void Awake() {
 		indicatorSprite = indicatorRoot.GetComponentInChildren<SpriteRenderer>();
+		detailsText = indicatorRoot.GetComponentInChildren<TextMesh>();
 	}
 
 	void Start() {
@@ -74,9 +76,9 @@ public class Controller : MonoBehaviour {
 	void Update() {
 
 		if (crewMembers.Count > 1) {
-			if (Input.GetKeyDown(KeyCode.LeftShift)) {
+			if (Input.GetKeyDown(KeyCode.Q)) {
 				crewIndex = (crewIndex + crewMembers.Count - 1) % crewMembers.Count;
-			} else if (Input.GetKeyDown(KeyCode.RightShift)) {
+			} else if (Input.GetKeyDown(KeyCode.E)) {
 				crewIndex = (crewIndex + 1) % crewMembers.Count;
 			}
 		}
@@ -84,16 +86,25 @@ public class Controller : MonoBehaviour {
 
 		if (IsCrewMemberSelected) {
 			transform.position = SelectedCrewMember.transform.position;
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
 				SelectedCrewMember.TryAction();
 		} 
 
 		var focus = IsCrewMemberSelected ? SelectedCrewMember.focus : null;
 		if (focus == null) {
-			indicatorSprite.enabled = false;
+			if (indicatorSprite.enabled) {
+				indicatorSprite.enabled = false;
+				detailsText.text = "";
+			}
 		} else {
-			indicatorSprite.enabled = true;
+			if (!indicatorSprite.enabled) {
+				indicatorSprite.enabled = true;
+				detailsText.text = focus.GetDescription();
+			}
+
 			indicatorRoot.position = focus.IndicatorRoot.position;
+
+			
 		}
 
 	}

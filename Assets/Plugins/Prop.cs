@@ -4,12 +4,27 @@ using UnityEngine;
 
 public class Prop : MonoBehaviour, CrewMember.Interactable, CrewMember.Pickupable {
 
+	public string description = "Gold Doubloons";
 	bool isPickedUp = false;
 
 	// Interactable
 
 	Transform CrewMember.Interactable.IndicatorRoot {
 		get { return transform; }
+	}
+
+	string CrewMember.Interactable.GetDescription() {
+		var booty = GetComponent<Booty>();
+		var mass = GetComponent<ShipMass>();
+
+		var result = description;
+
+		if (booty)
+			result += ("\nBooty: $" + booty.treasureAmount);
+		if (mass)
+			result += ("\nMass: " + mass.ReadableMass + "kg");
+
+		return result;
 	}
 
 	bool CrewMember.Interactable.CanReceiveFocus {

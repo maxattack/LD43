@@ -36,6 +36,7 @@ public class CrewMember : MonoBehaviour {
 	// interactables
 	public interface Interactable {
 		Transform IndicatorRoot { get; }
+		string GetDescription();
 		bool CanReceiveFocus { get; }
 		void OnReceiveFocus(CrewMember crew);
 		void OnActionPerformed(CrewMember crew);

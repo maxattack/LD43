@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShipMass : MonoBehaviour {
 
+	public const float MassScale = 1f;
 	public float mass = 1f;
 
 	void Start () {
@@ -17,5 +18,11 @@ public class ShipMass : MonoBehaviour {
 			Ship.inst.masses.Remove(this);
 		
 	}
+
+	public int ReadableMass {
+		get { return Mathf.RoundToInt(mass * MassScale); }
+
+	}
+
 
 }
