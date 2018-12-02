@@ -13,9 +13,9 @@ public class Turret : MonoBehaviour, Slot.Listener {
         gun.SetActive(false);
     }
 
-    void Slot.Listener.SlotFilled(Slot slot, CrewMember.Pickupable pickup)
+    void Slot.Listener.SlotFilled(Slot slot, Transform item)
     {
-        var fuelCell = pickup.RootTransform.GetComponent<FuelCell>();
+        var fuelCell = item.GetComponent<FuelCell>();
         if (fuelCell)
         {
             cell = fuelCell;

@@ -93,6 +93,14 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 
 	public bool GetDropoffLocation(out Vector2 location, out Slot slot) {
 		var targetLoc = dropoffRoot.position;
+
+
+		var hammer = pickup.RootTransform.GetComponentInChildren<Hammer>();
+		if (hammer != null) {
+			targetLoc.x = Mathf.Floor(targetLoc.x) + 0.5f;
+			targetLoc.y = Mathf.Floor(targetLoc.y) + 0.5f;
+		}
+
 		location = targetLoc;
 		slot = null;
 		if (pickup == null)

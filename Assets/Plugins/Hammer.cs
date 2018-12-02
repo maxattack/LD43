@@ -20,7 +20,7 @@ public class Hammer : MonoBehaviour, CrewMember.Pickupable {
             //other.gameObject.GetComponentInChildren<Rigidbody>().AddForce(Vector3.forward);
             Instantiate(InvisibleWall, other.transform.position, other.transform.rotation);
 
-            Destroy(other.gameObject);
+            Destroy(other.transform.parent.gameObject);
             
             //Destroy(gameObject.transform.parent.gameObject);
         }
@@ -32,7 +32,7 @@ public class Hammer : MonoBehaviour, CrewMember.Pickupable {
     }
 
 	Vector2 CrewMember.Pickupable.BoxSize {
-		get { return new Vector2(1f, 1f); }
+		get { return new Vector2(0.5f, 0.5f); }
 	}
 
     void CrewMember.Pickupable.OnPickup(CrewMember crew)

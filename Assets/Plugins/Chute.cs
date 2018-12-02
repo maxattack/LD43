@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Chute : MonoBehaviour, Slot.Listener
 {
-    void Slot.Listener.SlotFilled(Slot slot, CrewMember.Pickupable pickup)
+    void Slot.Listener.SlotFilled(Slot slot, Transform item)
     {
-        Destroy(pickup.RootTransform.gameObject);
+        Destroy(item.gameObject);
     }
 
     void Slot.Listener.SlotEmptied(Slot slot)
