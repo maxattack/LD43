@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Hammer : MonoBehaviour, CrewMember.Pickupable {
 
-    private bool isPickedUp;
-
     public GameObject InvisibleWall;
 
 	void Start () {
@@ -37,7 +35,6 @@ public class Hammer : MonoBehaviour, CrewMember.Pickupable {
 
     void CrewMember.Pickupable.OnPickup(CrewMember crew)
     {
-        isPickedUp = true;
         foreach (var it in GetComponentsInChildren<Collider2D>())
             it.enabled = false;
     }
@@ -50,7 +47,6 @@ public class Hammer : MonoBehaviour, CrewMember.Pickupable {
     void CrewMember.Pickupable.OnDropoff(CrewMember crew)
     {
         Debug.Log("firing");
-        isPickedUp = false;
         foreach (var it in GetComponentsInChildren<Collider2D>())
             it.enabled = true;
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Chute : MonoBehaviour, Slot.Listener
 {
@@ -9,9 +7,8 @@ public class Chute : MonoBehaviour, Slot.Listener
         Destroy(item.gameObject);
     }
 
-    void Slot.Listener.SlotEmptied(Slot slot)
+    void Slot.Listener.SlotEmptied(Slot slot, Transform item)
     {
-        // slot cannot be emptied
     }
 
 }

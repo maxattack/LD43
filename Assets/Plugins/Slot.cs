@@ -8,7 +8,7 @@ public class Slot : MonoBehaviour {
 
 	public interface Listener {
 		void SlotFilled(Slot slot, Transform item);
-		void SlotEmptied(Slot slot);
+		void SlotEmptied(Slot slot, Transform item);
 	}
 
 	void Start() {
@@ -33,19 +33,23 @@ public class Slot : MonoBehaviour {
 	}
 
 	public bool TryEmpty() {
-		if (item == null)
+		if (!item)
 			return false;
 
+		DoDisconnect(item);
+		return true;
+	}
+
+	internal void DoDisconnect(Transform t) {
 		item = null;
 		var listener = GetComponent<Listener>();
 		if (listener != null)
-			listener.SlotEmptied(this);
-		return true;
+			listener.SlotEmptied(this, t);
 	}
 
 	public bool IsEmpty {
 		get {
-			return item == null;
+			return !item;
 		}
 	}
 
@@ -67,6 +71,12 @@ public class SlotConnection : MonoBehaviour {
 		if (connection && connection.connectedSlot) {
 			connection.connectedSlot.TryEmpty();
 			connection.connectedSlot = null;
+		}
+	}
+
+	void OnDestroy() {
+		if (connectedSlot != null && connectedSlot.item == this) {
+			connectedSlot.DoDisconnect(transform);
 		}
 	}
 }

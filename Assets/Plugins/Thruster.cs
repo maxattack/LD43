@@ -33,20 +33,20 @@ public class Thruster : MonoBehaviour, Slot.Listener {
 		}
 	}
 
-	void Slot.Listener.SlotEmptied(Slot slot) {
+	void Slot.Listener.SlotEmptied(Slot slot, Transform item) {
 		cell = null;
 	}
 
 	void Update() {
 		var thrust = cell && cell.HasFuel;
 		if (thrust) {
-			if (!flame.active)
+			if (!flame.activeInHierarchy)
 				flame.SetActive(true);
 
 			cell.DrainFuel(Time.deltaTime);
 
 		} else {
-			if (flame.active)
+			if (flame.activeInHierarchy)
 				flame.SetActive(false);
 		}
 

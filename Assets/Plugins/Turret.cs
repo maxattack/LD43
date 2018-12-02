@@ -22,7 +22,7 @@ public class Turret : MonoBehaviour, Slot.Listener {
         }
     }
 
-    void Slot.Listener.SlotEmptied(Slot slot)
+    void Slot.Listener.SlotEmptied(Slot slot, Transform item)
     {
         cell = null;
     }
@@ -32,7 +32,7 @@ public class Turret : MonoBehaviour, Slot.Listener {
         var thrust = cell && cell.HasFuel;
         if (thrust)
         {
-            if (!gun.active)
+            if (!gun.activeInHierarchy)
                 gun.SetActive(true);
 
             cell.DrainFuel(Time.deltaTime);
@@ -40,7 +40,7 @@ public class Turret : MonoBehaviour, Slot.Listener {
         }
         else
         {
-            if (gun.active)
+            if (gun.activeInHierarchy)
                 gun.SetActive(false);
         }
 

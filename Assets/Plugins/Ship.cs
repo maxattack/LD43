@@ -5,13 +5,18 @@ public class Ship : MonoBehaviour {
 
 	public static Ship inst;
 
+	public const int ThrustMultiplier = 10000;
+
 	public float maxBalancePenaltyMeters = 10f;
 
 	internal List<Booty> booty = new List<Booty>();
 	internal List<ShipMass> masses = new List<ShipMass>();
 	internal List<Thruster> thrusters = new List<Thruster>();
 	internal Vector2 centerOfMass;
-
+	internal float balancePenalty;
+	internal float speed;
+	internal float mass;
+	internal float thrust;
 
 	void Awake() {
 		inst = this;
@@ -24,6 +29,11 @@ public class Ship : MonoBehaviour {
 
 	void Update() {
 		centerOfMass = ComputeCenterOfMass();
+		balancePenalty = centerOfMass.magnitude / maxBalancePenaltyMeters;
+		mass = ShipMass.MassScale * GetTotalMass();
+		thrust = GetThrustCount() * ThrustMultiplier;
+		speed = mass > Mathf.Epsilon ? (1f - balancePenalty) * thrust / mass : 0f;
+
 	}
 
 	Vector2 ComputeCenterOfMass() {
@@ -65,5 +75,6 @@ public class Ship : MonoBehaviour {
 		}
 		return result;
 	}
+
 
 }
