@@ -6,7 +6,7 @@ public class Cam : MonoBehaviour {
 
 	public Transform target;
 	public float smoothTime = 1f;
-	public float tiltPerMeter = 5f;
+	public float tiltDegreesPerMeter = 8f;
 
 	Vector2 targetPos;
 	Vector2 velocity = Vector3.zero;
@@ -32,7 +32,7 @@ public class Cam : MonoBehaviour {
 			} else {
 				var offset = com.magnitude;
 				var axis = new Vector3(-com.y, com.x, 0f) / offset;
-				var angle = offset * tiltPerMeter;
+				var angle = offset * tiltDegreesPerMeter;
 				transform.rotation = Quaternion.AngleAxis(angle, axis);
 
 			}
