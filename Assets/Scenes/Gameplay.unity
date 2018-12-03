@@ -3520,7 +3520,7 @@ GameObject:
   - component: {fileID: 534669903}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3594,7 +3594,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4076145765063324, guid: 11bc0685d0791404f902f48a0e314129, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.5
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4076145765063324, guid: 11bc0685d0791404f902f48a0e314129, type: 2}
       propertyPath: m_LocalPosition.y
@@ -5587,34 +5587,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11bc0685d0791404f902f48a0e314129, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &778126657
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 778126658}
-  m_Layer: 0
-  m_Name: SpeedDust
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &778126658
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 778126657}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &806114288
 Prefab:
   m_ObjectHideFlags: 0
@@ -7176,7 +7148,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4076145765063324, guid: 11bc0685d0791404f902f48a0e314129, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.5
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4076145765063324, guid: 11bc0685d0791404f902f48a0e314129, type: 2}
       propertyPath: m_LocalPosition.y
@@ -10365,7 +10337,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4681510228551692, guid: 1225a6dee03ed492a84b582ff6880f81, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1225a6dee03ed492a84b582ff6880f81, type: 2}
@@ -11710,6 +11682,48 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4871927286717394, guid: 30ed80a44148b3a42a53aea4afd59720,
     type: 2}
   m_PrefabInternal: {fileID: 1455262125}
+--- !u!1 &1462914807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1462914809}
+  - component: {fileID: 1462914808}
+  m_Layer: 0
+  m_Name: StarSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1462914808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1462914807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cf8855ba047fb479a9f3665bc56d68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 1
+  prefab: {fileID: 1189222707513668, guid: 38a89eef8afc0f34e99a9009c1961792, type: 2}
+--- !u!4 &1462914809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1462914807}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1463053046
 Prefab:
   m_ObjectHideFlags: 0
@@ -14819,7 +14833,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4076145765063324, guid: 11bc0685d0791404f902f48a0e314129, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.5
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4076145765063324, guid: 11bc0685d0791404f902f48a0e314129, type: 2}
       propertyPath: m_LocalPosition.y
