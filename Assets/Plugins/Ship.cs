@@ -17,6 +17,7 @@ public class Ship : MonoBehaviour {
 	internal float balancePenalty;
 	internal float speed;
 	internal float mass;
+	internal float realthrust;
 	internal float thrust;
 
 	public List<string> bootyNames;
@@ -53,6 +54,8 @@ public class Ship : MonoBehaviour {
 			inst = null;
 	}
 
+	float lastThrustUpdateTime = -999f;
+
 	void Update() {
 		centerOfMass = ComputeCenterOfMass();
 		balancePenalty = centerOfMass.magnitude / maxBalancePenaltyMeters;
@@ -60,8 +63,13 @@ public class Ship : MonoBehaviour {
 		
 		var t = (Time.time - startTime) / thrustHalflife;
 		var thrustMulti = ThrustMultiplier / (1f + t);
-		thrust = GetThrustCount() * thrustMulti;
-		speed = mass > Mathf.Epsilon ? (1f - balancePenalty) * thrust / mass : 0f;
+		realthrust = GetThrustCount() * thrustMulti;
+		speed = mass > Mathf.Epsilon ? (1f - balancePenalty) * realthrust / mass : 0f;
+
+		if (Time.time - lastThrustUpdateTime > 1f) {
+			thrust = realthrust;
+			lastThrustUpdateTime = Time.time;
+		}
 
 	}
 
