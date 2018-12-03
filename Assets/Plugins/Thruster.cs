@@ -40,8 +40,12 @@ public class Thruster : MonoBehaviour, Slot.Listener {
 	void Update() {
 		var thrust = cell && cell.HasFuel;
 		if (thrust) {
-			if (!flame.activeInHierarchy)
+			if (!flame.activeInHierarchy) {
 				flame.SetActive(true);
+				var sfx = GetComponent<AudioSource>();
+				if (Time.time > 0.2f && sfx)
+					sfx.Play();
+			}
 
 			cell.DrainFuel(Time.deltaTime);
 
