@@ -7,7 +7,7 @@ public class StatsText : MonoBehaviour {
 
 	void LateUpdate () {
 		var treasure = "$ " + Ship.inst.GetTotalBooty();
-		var thrust = Ship.inst.thrust;
+		var thrust = Mathf.RoundToInt(Ship.inst.thrust);
 		var totalMass = Mathf.RoundToInt(Ship.inst.mass);
 		var balancePenalty = Mathf.RoundToInt(100f * Ship.inst.balancePenalty) + "%";
 		var speed = Mathf.RoundToInt(Ship.inst.speed);
