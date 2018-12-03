@@ -2902,6 +2902,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114430368226457062, guid: 560413da3fd8a4c5b8214c02a0f1588d,
+        type: 2}
+      propertyPath: endDistance
+      value: 3500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114430368226457062, guid: 560413da3fd8a4c5b8214c02a0f1588d,
+        type: 2}
+      propertyPath: DangerSpeedRate
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 560413da3fd8a4c5b8214c02a0f1588d, type: 2}
   m_IsPrefabAsset: 0
