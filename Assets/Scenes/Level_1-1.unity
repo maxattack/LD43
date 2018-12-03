@@ -2902,6 +2902,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114430368226457062, guid: 560413da3fd8a4c5b8214c02a0f1588d,
+        type: 2}
+      propertyPath: DangerSpeedRate
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114430368226457062, guid: 560413da3fd8a4c5b8214c02a0f1588d,
+        type: 2}
+      propertyPath: endDistance
+      value: 4000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 560413da3fd8a4c5b8214c02a0f1588d, type: 2}
   m_IsPrefabAsset: 0
@@ -39992,6 +40002,16 @@ Prefab:
     - target: {fileID: 4550172175024112, guid: 1b9dc6ffe191f7e47bb5019cfc8458bc, type: 2}
       propertyPath: m_RootOrder
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 82572467704282668, guid: 1b9dc6ffe191f7e47bb5019cfc8458bc,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 82920771096681234, guid: 1b9dc6ffe191f7e47bb5019cfc8458bc,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.34
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b9dc6ffe191f7e47bb5019cfc8458bc, type: 2}
