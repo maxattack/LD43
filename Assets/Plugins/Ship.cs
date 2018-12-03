@@ -8,6 +8,7 @@ public class Ship : MonoBehaviour {
 	public const int ThrustMultiplier = 10000;
 
 	public float maxBalancePenaltyMeters = 10f;
+	public float thrustHalflife = 60f;
 
 	internal List<Booty> booty = new List<Booty>();
 	internal List<ShipMass> masses = new List<ShipMass>();
@@ -34,15 +35,17 @@ public class Ship : MonoBehaviour {
 	internal string GetCrewName(string def) {
 		if (crewIdx >= crewNames.Count)
 			return def;
-		var it = crewIdx;
 		crewIdx = (crewIdx + 1) % crewNames.Count;
 		return crewNames[crewIdx];
 	}
+
+	float startTime = 0f;
 
 	void Awake() {
 		inst = this;
 		bootyNames.Sort((a, b) => Random.value > 0.5f ? 1 : -1);
 		crewNames.Sort((a, b) => Random.value > 0.5f ? 1 : -1);
+		startTime = Time.time;
 	}
 
 	void OnDestroy() {
@@ -54,7 +57,10 @@ public class Ship : MonoBehaviour {
 		centerOfMass = ComputeCenterOfMass();
 		balancePenalty = centerOfMass.magnitude / maxBalancePenaltyMeters;
 		mass = ShipMass.MassScale * GetTotalMass();
-		thrust = GetThrustCount() * ThrustMultiplier;
+		
+		var t = (Time.time - startTime) / thrustHalflife;
+		var thrustMulti = ThrustMultiplier / (1f + t);
+		thrust = GetThrustCount() * thrustMulti;
 		speed = mass > Mathf.Epsilon ? (1f - balancePenalty) * thrust / mass : 0f;
 
 	}
