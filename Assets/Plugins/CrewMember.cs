@@ -16,6 +16,11 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 	public float pickupTime = 0.5f;
 	public float pickupHeight = 0.5f;
 
+	public AudioSource footLoop;
+	float lastAccelTime = -999f;
+	public AudioSource liftSFX;
+	public AudioSource dropSFX;
+
 	// cached components
 	internal Rigidbody2D body;
 
@@ -58,6 +63,8 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 	// controller methods
 
 	public void Accelerate(Vector2 inputDir) {
+		if (inputDir.sqrMagnitude > Mathf.Epsilon)
+			lastAccelTime = Time.time;
 		var force = targetSpeed * body.drag;
 		body.AddForce(inputDir * force, ForceMode2D.Force);
 		targetDirection = Mathf.Rad2Deg * Mathf.Atan2(inputDir.y, inputDir.x);
@@ -84,6 +91,7 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 			receiver.OnLoseFocus(this);
 		}
 
+		liftSFX.Play();
 		pickup = aPickup;
 		SetStatus(Status.PickingUp);
 
@@ -138,6 +146,7 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		Vector2 dropLoc;
 		Slot slot;
 		if (GetDropoffLocation(out dropLoc, out slot)) {
+			dropSFX.Play();
 			SetStatus(Status.PuttingDown);
 			StartCoroutine(DoPutdown(dropLoc, slot));
 		}
@@ -240,6 +249,16 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		currentDirection = Mathf.SmoothDampAngle(currentDirection, targetDirection, ref dirVelocity, rotationSmoothTime);
 		pivotRoot.localEulerAngles = new Vector3(0f, 0f, currentDirection);
 		cardinalRoot.localEulerAngles = new Vector3(0f, 0f, targetDirection);
+
+		var wantFootloop = Time.time > 0.5f && (Time.time - lastAccelTime) < 0.2f;
+		if (footLoop.isPlaying) {
+			if (!wantFootloop)
+				footLoop.Stop();
+		} else if (wantFootloop) { 
+			footLoop.Play();
+		}
+
+
 	}
 
 

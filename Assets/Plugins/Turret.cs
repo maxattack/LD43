@@ -43,8 +43,12 @@ public class Turret : MonoBehaviour, Slot.Listener {
         var thrust = cell && cell.HasFuel;
         if (thrust)
         {
-            if (!gun.activeInHierarchy)
+            if (!gun.activeInHierarchy) {
                 gun.SetActive(true);
+				var sfx = GetComponent<AudioSource>();
+				if (sfx && Time.time > 0.2f)
+					sfx.Play();
+			}
 
             cell.DrainFuel(Time.deltaTime);
 

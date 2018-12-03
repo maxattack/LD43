@@ -83,10 +83,13 @@ public class Controller : MonoBehaviour {
 	void Update() {
 
 		if (crewMembers.Count > 1) {
+			var sfx = GetComponent<AudioSource>();
 			if (Input.GetKeyDown(KeyCode.Q)) {
 				crewIndex = (crewIndex + crewMembers.Count - 1) % crewMembers.Count;
+				if (sfx) sfx.Play();
 			} else if (Input.GetKeyDown(KeyCode.E)) {
 				crewIndex = (crewIndex + 1) % crewMembers.Count;
+				if (sfx) sfx.Play();
 			}
 		}
 
