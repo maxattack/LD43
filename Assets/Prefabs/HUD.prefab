@@ -643,7 +643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1498317936480144
 GameObject:
   m_ObjectHideFlags: 1
@@ -2469,7 +2469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63cc3fc353b3742edba5e3e39edcd5e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endDistance: 9300
+  endDistance: 4500
   RatioPanel: {fileID: 224819876225704258}
   FireImage: {fileID: 224046643899357312}
   MassImage: {fileID: 224462165639937038}
@@ -2481,7 +2481,7 @@ MonoBehaviour:
   TextDangerDist: {fileID: 114049801515030512}
   PlayerSpeed: {fileID: 114025015424684880}
   PlayerSpeedMultiplier: 1
-  DangerSpeedRate: 45
+  DangerSpeedRate: 5
   DangerRandomRange: 5
   VictoryPanel: {fileID: 1586727214586722}
   DefeatPanel: {fileID: 1596479583224772}

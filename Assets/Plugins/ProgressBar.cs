@@ -112,7 +112,7 @@ public class ProgressBar : MonoBehaviour {
     }
 
     void Victory() {
-        VictoryBounty.text = "Scored: " + Ship.inst.GetTotalBooty().ToString();
+        VictoryBounty.text = "Scored: $" + Ship.inst.GetTotalBooty().ToString();
         VictoryPanel.SetActive(true);
     }
 }
