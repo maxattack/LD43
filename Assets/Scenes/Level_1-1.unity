@@ -30696,7 +30696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2007266529}
   smoothTime: 0.25
-  tiltPerMeter: 5
+  tiltDegreesPerMeter: 8
 --- !u!4 &1288989952
 Transform:
   m_ObjectHideFlags: 0
@@ -43503,6 +43503,16 @@ Prefab:
     - target: {fileID: 4303842868358196, guid: f29d45134f666a34a9215e9aaa6969c9, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 82895643395056818, guid: f29d45134f666a34a9215e9aaa6969c9,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 54ae3b3e4c3595341877933dbb6c69e5, type: 3}
+    - target: {fileID: 82895643395056818, guid: f29d45134f666a34a9215e9aaa6969c9,
+        type: 2}
+      propertyPath: m_Pitch
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f29d45134f666a34a9215e9aaa6969c9, type: 2}
