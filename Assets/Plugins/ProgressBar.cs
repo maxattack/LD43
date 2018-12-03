@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ProgressBar : MonoBehaviour {
 
@@ -38,39 +39,45 @@ public class ProgressBar : MonoBehaviour {
     public Text SpeedometerText;
     public float MaxSpeed = 120f;
 
+    private bool GameOver = false;
+
     private void LateUpdate()
     {
-        //This is ripped from StatsText
-        var mass = ShipMass.MassScale * Ship.inst.GetTotalMass();
-        //var totalMass = Mathf.RoundToInt(mass);
-        var thrust = 10000 * Ship.inst.GetThrustCount();
-        var com = Ship.inst.centerOfMass;
+        if(!GameOver) {
 
-        var bp = com.magnitude / Ship.inst.maxBalancePenaltyMeters;
+            //This is ripped from StatsText
+            var mass = ShipMass.MassScale * Ship.inst.GetTotalMass();
+            //var totalMass = Mathf.RoundToInt(mass);
+            var thrust = 10000 * Ship.inst.GetThrustCount();
+            var com = Ship.inst.centerOfMass;
 
-        var speed = mass > Mathf.Epsilon ?
-            Mathf.RoundToInt((1f - bp) * thrust / mass) : 0f;
+            var bp = com.magnitude / Ship.inst.maxBalancePenaltyMeters;
 
-        PlayerSpeed.text = "SPEED:\n" + speed + " au/s";
-        SpeedometerText.text = speed.ToString();
-        float dialRot = Mathf.InverseLerp(0,MaxSpeed, speed);
-        SpeedometerDial.rotation = Quaternion.Euler(0,0, Mathf.Lerp(-300,-95,1-dialRot));
+            var speed = mass > Mathf.Epsilon ?
+                Mathf.RoundToInt((1f - bp) * thrust / mass) : 0f;
 
-        UpdateRatio(mass, thrust, bp, com.x);
+            PlayerSpeed.text = "SPEED:\n" + speed + " au/s";
+            SpeedometerText.text = speed.ToString();
+            float dialRot = Mathf.InverseLerp(0, MaxSpeed, speed);
+            SpeedometerDial.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(-300, -95, 1 - dialRot));
 
-        currentPlayerDist += speed * Time.deltaTime * PlayerSpeedMultiplier;
+            UpdateRatio(mass, thrust, bp, com.x);
 
-
-        //if 2 turrets are active then the danger will be deterred. It will be slowed by half if one is active
-        float delayFactor = 1;
-        if(EnemyShip.inst) delayFactor = 1 - Mathf.Clamp(EnemyShip.inst.GetActiveTurrets() / 2f,0,1);
-
-        Debug.Log(delayFactor);
-
-        currentDangerDist += Time.deltaTime * DangerSpeedRate * delayFactor;
+            currentPlayerDist += speed * Time.deltaTime * PlayerSpeedMultiplier;
 
 
-        UpdateDistances(currentPlayerDist, currentDangerDist);
+            //if 2 turrets are active then the danger will be deterred. It will be slowed by half if one is active
+            float delayFactor = 1;
+            if (EnemyShip.inst) delayFactor = 1 - Mathf.Clamp(EnemyShip.inst.GetActiveTurrets() / 2f, 0, 1);
+
+            Debug.Log(delayFactor);
+
+            currentDangerDist += Time.deltaTime * DangerSpeedRate * delayFactor;
+
+
+            UpdateDistances(currentPlayerDist, currentDangerDist);
+
+        }
 
     }
 
@@ -111,10 +118,29 @@ public class ProgressBar : MonoBehaviour {
     void Defeat() {
         DefeatBounty.text = "Died clutching $" + Ship.inst.GetTotalBooty().ToString();
         DefeatPanel.SetActive(true);
+
+        GameOver = true;
+        StartCoroutine("RestartGameTimer", 5f);
     }
 
     void Victory() {
         VictoryBounty.text = "Scored: $" + Ship.inst.GetTotalBooty().ToString();
         VictoryPanel.SetActive(true);
+
+        GameOver = true;
+        StartCoroutine("RestartGameTimer", 5f);
+    }
+
+    IEnumerator RestartGameTimer(float s) {
+
+        yield return new WaitForSeconds(s);
+
+        RestartGame();
+    }
+
+    public void RestartGame() {
+
+        SceneManager.LoadScene(0);
+
     }
 }
