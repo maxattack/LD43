@@ -289,7 +289,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0cd1d555fed8c954d94fde7ff70dc9d6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f1b1933122d0cdc449c01dfadce42fc9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.355
   m_Pitch: 1
@@ -995,7 +995,7 @@ TextMesh:
   m_GameObject: {fileID: 1161731997}
   m_Text: 'Programming: Esteban Fajardo, Max Kaufmann
 
-    Music: Troupe Gammage'
+    Music + Sound: Troupe Gammage'
   m_OffsetZ: 0
   m_CharacterSize: 0.06
   m_LineSpacing: 1
@@ -1331,13 +1331,13 @@ TextMesh:
   m_GameObject: {fileID: 1299467638}
   m_Text: 'YOU ARE SPACE PIRATES!
 
-    THE NAVY IS IN HOW PURSUIT!!
+    THE NAVY IS IN HOT PURSUIT!!
 
     KEEP THE THRUSTERS FUELED
 
-    KEEP THE SHIP BALANCED
+    KEEP THE SHIP BALANCED AND
 
-    LOSE MASS TO GO FASTER
+    DITCH MASS TO GO FASTER
 
 '
   m_OffsetZ: 0
