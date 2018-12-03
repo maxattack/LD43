@@ -637,7 +637,6 @@ GameObject:
   - component: {fileID: 224850734506831058}
   - component: {fileID: 222752757897015876}
   - component: {fileID: 114121328935793806}
-  - component: {fileID: 114523954476507232}
   m_Layer: 0
   m_Name: Shadow_Panel_Progress
   m_TagString: Untagged
@@ -2832,38 +2831,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114523954476507232
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1483884270058728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63cc3fc353b3742edba5e3e39edcd5e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endDistance: 9300
-  RatioPanel: {fileID: 224141741755586102}
-  FireImage: {fileID: 224938842641210434}
-  MassImage: {fileID: 224186980474433788}
-  MassVal: {fileID: 114883289296920382}
-  ThrustVal: {fileID: 114270036449860110}
-  RouteImage: {fileID: 224679366830699312}
-  PlayerShipImage: {fileID: 224899820284343266}
-  TextDestinationDist: {fileID: 114915602400950644}
-  TextDangerDist: {fileID: 114858189542664524}
-  PlayerSpeed: {fileID: 114345965653876870}
-  PlayerSpeedMultiplier: 1
-  DangerSpeedRate: 45
-  DangerRandomRange: 5
-  VictoryPanel: {fileID: 1586727214586722}
-  DefeatPanel: {fileID: 1596479583224772}
-  VictoryBounty: {fileID: 114848961022284636}
-  DefeatBounty: {fileID: 114981314486619710}
-  SpeedometerDial: {fileID: 224342515912767664}
-  SpeedometerText: {fileID: 114489792534285352}
-  MaxSpeed: 120
 --- !u!114 &114532259488998674
 MonoBehaviour:
   m_ObjectHideFlags: 1
