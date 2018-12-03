@@ -4,7 +4,8 @@ using UnityEngine;
 public class SpeedDustSpawner : MonoBehaviour {
 
 	public float spawnRate = 1f;
-	public float depth = 5f;
+	public float minDepth = 15f;
+	public float maxDepth = 25f;
 	public GameObject prefab;
 
 	float distance = 0f;
@@ -32,7 +33,8 @@ public class SpeedDustSpawner : MonoBehaviour {
 
 	void Spawn() {
 		var cam = Camera.main;
-		var p = transform.position + Vector3.forward * Random.Range(0f, depth);
+		var z = Vector3.forward * Random.Range(minDepth, maxDepth);
+		var p = transform.position + z;
 		var topLeft = ScreenToWorld(new Vector3(-0.05f, 1.05f, 0f), p);
 		var topRight = ScreenToWorld(new Vector3(1.05f, 1.05f, 0f), p);
 		var pos = Vector3.Lerp(topLeft, topRight, Random.Range(0f, 1f));

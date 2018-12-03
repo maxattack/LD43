@@ -52,5 +52,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRate: 1
-  depth: 5
+  minDepth: 15
+  maxDepth: 25
   prefab: {fileID: 1189222707513668, guid: 38a89eef8afc0f34e99a9009c1961792, type: 2}
