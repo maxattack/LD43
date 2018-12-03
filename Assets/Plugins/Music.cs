@@ -9,7 +9,6 @@ public class Music : MonoBehaviour {
 			Destroy(gameObject);
 		} else {
 			inst = this;
-			DontDestroyOnLoad(gameObject);
 		}
 	}
 
