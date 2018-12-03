@@ -2481,7 +2481,7 @@ MonoBehaviour:
   TextDangerDist: {fileID: 114049801515030512}
   PlayerSpeed: {fileID: 114025015424684880}
   PlayerSpeedMultiplier: 1
-  DangerSpeedRate: 5
+  DangerSpeedRate: 8
   DangerRandomRange: 5
   VictoryPanel: {fileID: 1586727214586722}
   DefeatPanel: {fileID: 1596479583224772}

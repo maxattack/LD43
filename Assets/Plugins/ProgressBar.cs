@@ -65,6 +65,8 @@ public class ProgressBar : MonoBehaviour {
         float delayFactor = 1;
         if(EnemyShip.inst) delayFactor = 1 - Mathf.Clamp(EnemyShip.inst.GetActiveTurrets() / 2f,0,1);
 
+        Debug.Log(delayFactor);
+
         currentDangerDist += Time.deltaTime * DangerSpeedRate * delayFactor;
 
 

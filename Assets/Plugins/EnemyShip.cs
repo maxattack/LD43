@@ -23,4 +23,15 @@ public class EnemyShip : MonoBehaviour {
     public int GetAllTurrets() {
         return turrets.Count;
     }
+
+    private void Awake()
+    {
+        inst = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (inst == this)
+            inst = null;
+    }
 }
