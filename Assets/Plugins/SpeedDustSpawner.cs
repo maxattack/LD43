@@ -6,7 +6,7 @@ public class SpeedDustSpawner : MonoBehaviour {
 	public float spawnRate = 1f;
 	public float minDepth = 15f;
 	public float maxDepth = 25f;
-	public GameObject prefab;
+	public SpeedDust prefab;
 
 	float distance = 0f;
 	int numSpawned = 0;
@@ -38,12 +38,12 @@ public class SpeedDustSpawner : MonoBehaviour {
 		var topLeft = ScreenToWorld(new Vector3(-0.05f, 1.05f, 0f), p);
 		var topRight = ScreenToWorld(new Vector3(1.05f, 1.05f, 0f), p);
 		var pos = Vector3.Lerp(topLeft, topRight, Random.Range(0f, 1f));
-		Instantiate(prefab, pos, Quaternion.identity);
+		prefab.Create(pos);
 	}
 
 	Vector3 ScreenToWorld(Vector3 screenLoc, Vector3 refPos) {
 		var cam = Camera.main;
-		var canvasPlane = new Plane(cam.transform.forward, refPos);
+		var canvasPlane = new Plane(Vector3.forward, refPos);
 		var ray = cam.ViewportPointToRay(screenLoc);
 		float dist;
 		canvasPlane.Raycast(ray, out dist);

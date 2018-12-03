@@ -7,13 +7,47 @@ public class SpeedDust : MonoBehaviour {
 
 	float rotRate;
 
+	// for the prefab, this points at the next available instance, for
+	// instances this points back at the prefab
+	SpeedDust next = null;
+
+	public void Create(Vector3 pos) {
+		if (next != null) {
+			var result = next;
+			next = next.next;
+
+			result.gameObject.SetActive(true);
+			result.transform.position = pos;
+			result.next = this;
+
+
+		} else {
+
+			var result = Instantiate(this, pos, Quaternion.identity);
+			result.hideFlags = HideFlags.HideInHierarchy;
+			result.next = this;
+
+		}
+	}
+
+	public void Release() {
+		if (next == null) {
+			Destroy(gameObject);
+		} else {
+			gameObject.SetActive(false);
+			var prefab = next;
+			next = prefab.next;
+			prefab.next = this;
+		}
+	}
+
 	void Awake() {
 		rotRate = Random.Range(-rotationRate, rotationRate);
 	}
 
 	void Update() {
 		if (!Ship.inst) {
-			Destroy(gameObject);
+			Release();
 			return;
 		}
 
@@ -24,7 +58,7 @@ public class SpeedDust : MonoBehaviour {
 		var pos = transform.position + new Vector3(0, -offset, 0);
 		var cam = Camera.main;
 		if (cam.WorldToScreenPoint(pos).y < -10f) {
-			Destroy(gameObject);
+			Release();
 			return;
 		} else {
 			transform.position = pos;
