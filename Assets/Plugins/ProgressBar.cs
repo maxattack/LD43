@@ -59,7 +59,14 @@ public class ProgressBar : MonoBehaviour {
         UpdateRatio(mass, thrust, bp, com.x);
 
         currentPlayerDist += speed * Time.deltaTime * PlayerSpeedMultiplier;
-        currentDangerDist += Time.deltaTime * (DangerSpeedRate + Random.Range(-DangerRandomRange, DangerRandomRange));
+
+
+        //if 2 turrets are active then the danger will be deterred. It will be slowed by half if one is active
+        float delayFactor = 1;
+        if(EnemyShip.inst) delayFactor = 1 - Mathf.Clamp(EnemyShip.inst.GetActiveTurrets() / 2f,0,1);
+
+        currentDangerDist += Time.deltaTime * DangerSpeedRate * delayFactor;
+
 
         UpdateDistances(currentPlayerDist, currentDangerDist);
 

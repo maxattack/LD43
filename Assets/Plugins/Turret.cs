@@ -8,6 +8,17 @@ public class Turret : MonoBehaviour, Slot.Listener {
 
     internal FuelCell cell;
 
+    public bool IsShooting
+    {
+        get { return gun.activeInHierarchy; }
+    }
+
+    void Start()
+    {
+        if (EnemyShip.inst)
+            EnemyShip.inst.turrets.Add(this);
+    }
+
     void Awake()
     {
         gun.SetActive(false);
