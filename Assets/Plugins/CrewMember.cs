@@ -230,6 +230,12 @@ public class CrewMember : MonoBehaviour, CrewMember.Interactable {
 		currentDirection = targetDirection = pivotRoot.eulerAngles.z;
 	}
 
+	void Start() {
+		if (Ship.inst) {
+			description = Ship.inst.GetCrewName(description);
+		}
+	}
+
 	void Update() {
 		currentDirection = Mathf.SmoothDampAngle(currentDirection, targetDirection, ref dirVelocity, rotationSmoothTime);
 		pivotRoot.localEulerAngles = new Vector3(0f, 0f, currentDirection);

@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1c6e35f2a1cfc46bccab94c5835043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: Hammer
+  description: Floor-Destroying Hammer
 --- !u!114 &114725581720545698
 MonoBehaviour:
   m_ObjectHideFlags: 1

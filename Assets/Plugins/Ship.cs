@@ -18,8 +18,31 @@ public class Ship : MonoBehaviour {
 	internal float mass;
 	internal float thrust;
 
+	public List<string> bootyNames;
+	public List<string> crewNames;
+	internal int bootyIdx = 0;
+	internal int crewIdx = 0;
+
+	internal string GetBootyName(string def) {
+		if (bootyIdx >= bootyNames.Count)
+			return def;
+		var it = bootyIdx;
+		++bootyIdx;
+		return bootyNames[it];
+	}
+
+	internal string GetCrewName(string def) {
+		if (crewIdx >= crewNames.Count)
+			return def;
+		var it = crewIdx;
+		crewIdx = (crewIdx + 1) % crewNames.Count;
+		return crewNames[crewIdx];
+	}
+
 	void Awake() {
 		inst = this;
+		bootyNames.Sort((a, b) => Random.value > 0.5f ? 1 : -1);
+		crewNames.Sort((a, b) => Random.value > 0.5f ? 1 : -1);
 	}
 
 	void OnDestroy() {
