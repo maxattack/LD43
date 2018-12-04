@@ -50,13 +50,6 @@ public class Controller : MonoBehaviour {
 
 			var input = Vector2.zero;
 
-			for (int it=0; it<WASD.Length; ++it) {
-				if (Input.GetKeyDown(WASD[it])) {
-					mostRecentKeycode = WASD[it];
-					break;
-				}
-			}
-
 			if (mostRecentKeycode.HasValue) {
 				if (Input.GetKey(mostRecentKeycode.Value)) {
 					input = KeyToDirection(mostRecentKeycode.Value);
@@ -81,6 +74,18 @@ public class Controller : MonoBehaviour {
 	}
 
 	void Update() {
+
+		if (Time.time > 0.25f && Input.GetKeyDown(KeyCode.Escape))
+			Application.Quit();
+
+		for (int it = 0; it < WASD.Length; ++it) {
+			if (Input.GetKeyDown(WASD[it])) {
+				mostRecentKeycode = WASD[it];
+				break;
+			}
+		}
+
+
 
 		if (crewMembers.Count > 1) {
 			var sfx = GetComponent<AudioSource>();
